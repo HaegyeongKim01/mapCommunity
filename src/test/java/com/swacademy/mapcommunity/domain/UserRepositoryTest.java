@@ -31,7 +31,7 @@ class UserRepositoryTest {
     }
 
     @Test
-    @DisplayName("insert & select test")
+    @DisplayName("insert test")
     void testUser() {
         // Given
         User user = new User();
@@ -50,8 +50,21 @@ class UserRepositoryTest {
 
         transaction.commit();
 
-        //Then
         User entity = entityManager.find(User.class, user.getUserId());
 //        log.info("hihi name: {} email: {}", entity.getNickName(), entity.getEmail());
+    }
+
+    @Test
+    @DisplayName("insert test, Use SpringDataJPA")
+    void springDataJpaUser() {
+        // Given
+        User user = new User();
+        user.setUserId(UUID.randomUUID());
+        user.setEmail("king@gmail.com");
+        user.setPassword("1234!");
+        user.setNickName("나는 도라에몽");
+        user.setGender(Gender.NONE);
+
+        repository.save(user);
     }
 }

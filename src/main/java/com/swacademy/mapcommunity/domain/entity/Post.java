@@ -4,11 +4,15 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicInsert;
 
-import java.awt.*;
+import org.locationtech.jts.geom.Point;
+
 import java.time.LocalDateTime;
-import java.util.UUID;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "post")
@@ -17,17 +21,19 @@ import java.util.UUID;
 @DynamicInsert
 public class Post {
     @Id
-    @Column(name = "post_id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "post_id")
     private Long postId;
 
     @Column(nullable = false)
     private String title;
 
+    @Lob
     @Column(name = "content", nullable = false)
     private String content;
 
-    @Column(columnDefinition = "TIMESTAMP")
+    @CreationTimestamp
+    @Column(name = "post_date_time")
     private LocalDateTime postDatetime;
 
     /**
@@ -37,14 +43,28 @@ public class Post {
     @ColumnDefault("0")
     private int postLike;
 
-    //@Todo post_date
-
     @Column(columnDefinition = "GEOMETRY")
     private Point geography;
 
-    //@Todo fk
-    /*
-    @Column(name = "user_id")
-    private long userId;
-    */
+    //fk
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    private User user;
+
+    //fk
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> comments = new ArrayList<>();
+
+    //연관관계 편의 메소드
+    public void setUser(User user) {
+        if (Objects.nonNull(this.user)) {
+            this.user.getPosts().remove(this);
+        }
+        this.user = user;
+        user.getPosts().add(this);
+    }
+
+    public void addComment(Comment comment) {
+        comment.setPost(this);
+    }
 }

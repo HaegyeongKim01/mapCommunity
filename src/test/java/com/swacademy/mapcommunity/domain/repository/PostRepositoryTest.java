@@ -1,9 +1,6 @@
 package com.swacademy.mapcommunity.domain.repository;
 
 import com.swacademy.mapcommunity.domain.entity.Post;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.EntityTransaction;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -16,8 +13,6 @@ import java.util.UUID;
 @Slf4j
 @SpringBootTest
 class PostRepositoryTest {
-    @Autowired
-    EntityManagerFactory emf;
 
     @Autowired
     PostRepository repository;
@@ -28,25 +23,18 @@ class PostRepositoryTest {
     }
 
     @Test
-    @DisplayName("insert & select test")
+    @DisplayName("insert test")
     void testCustomer() {
         // Given
         Post post = new Post();
-        post.setTitle("처음으로 써보는 글");
-        post.setContent("우와 처음으로 글이 써진다!!");
+        post.setTitle("test post");
+        post.setContent("this is test post in PostRepositoryTest.java");
 
-        EntityManager entityManager = emf.createEntityManager();
-        EntityTransaction transaction = entityManager.getTransaction();
-        transaction.begin();
-
-        entityManager.persist(post);
-
-        transaction.commit();
+        repository.save(post);   //SpringDataJpa
 
         //Then
-        Post entity = entityManager.find(Post.class, post.getPostId());
-        log.info("hihi name: {} email: {}", entity.getTitle(), entity.getContent());
-        System.out.println("좋아요 수 "+entity.getPostLike());
-        System.out.println("좋아요 수 "+entity.getPostLike()+10);
+        Post entity = repository.findById(post.getPostId()).get();
+        log.info("title: {} , content: {}", entity.getTitle(), entity.getContent());
     }
+
 }
