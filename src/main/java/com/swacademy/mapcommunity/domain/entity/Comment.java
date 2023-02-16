@@ -16,11 +16,10 @@ import java.util.Objects;
 @Setter
 @DynamicInsert
 public class Comment {
-
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "comment_id")
-    private int commentId;
+    private Long commentId;
 
     @Lob
     @Column(nullable = false)

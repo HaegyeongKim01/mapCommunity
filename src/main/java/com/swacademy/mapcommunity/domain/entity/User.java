@@ -23,14 +23,13 @@ public class User {
     @Column(name = "user_id", columnDefinition = "BINARY(16)")
     private UUID userId;
 
-    @Column(name = "email", nullable = false)
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
     @Column(name = "password", nullable = false)
     private String password;
 
-    //@Todo ADD unique
-    @Column(name = "nick_name", nullable = false, length = 30)
+    @Column(name = "nick_name", nullable = false, length = 30, unique = true)
     private String nickName;
 
     @Enumerated(value = EnumType.STRING)
