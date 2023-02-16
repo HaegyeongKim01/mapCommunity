@@ -3,14 +3,18 @@ package com.swacademy.mapcommunity.domain.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
 
 import java.awt.*;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
 @Table(name = "post")
 @Getter
 @Setter
+@DynamicInsert
 public class Post {
     @Id
     @Column(name = "post_id")
@@ -23,11 +27,14 @@ public class Post {
     @Column(name = "content", nullable = false)
     private String content;
 
+    @Column(columnDefinition = "TIMESTAMP")
+    private LocalDateTime postDatetime;
+
     /**
      * like는 SQL 예약어이기에 오류 가능성 높음
      * default로 0으로 하기
      */
-    @Column(name = "post_like")
+    @ColumnDefault("0")
     private int postLike;
 
     //@Todo post_date

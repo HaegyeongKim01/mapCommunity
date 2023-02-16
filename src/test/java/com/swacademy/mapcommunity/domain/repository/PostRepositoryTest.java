@@ -34,7 +34,6 @@ class PostRepositoryTest {
         Post post = new Post();
         post.setTitle("처음으로 써보는 글");
         post.setContent("우와 처음으로 글이 써진다!!");
-        post.setPostLike(0);
 
         EntityManager entityManager = emf.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
@@ -43,9 +42,11 @@ class PostRepositoryTest {
         entityManager.persist(post);
 
         transaction.commit();
-        System.out.println("adsfadsfadsfa"+org.hibernate.Version.getVersionString());
+
         //Then
         Post entity = entityManager.find(Post.class, post.getPostId());
         log.info("hihi name: {} email: {}", entity.getTitle(), entity.getContent());
+        System.out.println("좋아요 수 "+entity.getPostLike());
+        System.out.println("좋아요 수 "+entity.getPostLike()+10);
     }
 }

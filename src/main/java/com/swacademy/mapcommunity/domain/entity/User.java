@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
@@ -14,6 +15,7 @@ import java.util.UUID;
 public class User {
 
     @Id
+//    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID userId;
 
     @Column(name = "email", nullable = false)
@@ -22,11 +24,14 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "nick_name", nullable = false, length = 30, unique = true)
+    //@Todo ADD unique
+    @Column(name = "nick_name", nullable = false, length = 30)
     private String nickName;
 
     @Enumerated(value = EnumType.STRING)
     private Gender gender;
 
     //@Todo - birth 추가
+    private LocalDate birth;
+
 }

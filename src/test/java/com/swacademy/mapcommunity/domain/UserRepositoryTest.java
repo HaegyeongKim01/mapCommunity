@@ -32,17 +32,18 @@ class UserRepositoryTest {
 
     @Test
     @DisplayName("insert & select test")
-    void testCustomer() {
+    void testUser() {
         // Given
         User user = new User();
         user.setUserId(UUID.randomUUID());
         user.setEmail("hong@gmail.com");
         user.setPassword("1234!");
-        user.setNickName("나는퉁퉁이");
+        user.setNickName("나는 도라에몽");
         user.setGender(Gender.NONE);
 
         EntityManager entityManager = emf.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
+
         transaction.begin();
 
         entityManager.persist(user);
@@ -51,6 +52,6 @@ class UserRepositoryTest {
 
         //Then
         User entity = entityManager.find(User.class, user.getUserId());
-        log.info("hihi name: {} email: {}", entity.getNickName(), entity.getEmail());
+//        log.info("hihi name: {} email: {}", entity.getNickName(), entity.getEmail());
     }
 }
