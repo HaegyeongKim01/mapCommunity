@@ -17,9 +17,8 @@ import java.util.Objects;
 @DynamicInsert
 public class Comment {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "comment_id")
-    private Long commentId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
 
     @Lob
     @Column(nullable = false)
@@ -34,11 +33,11 @@ public class Comment {
     private LocalDateTime commentDatetime;
 
     @ManyToOne
-    @JoinColumn(name = "post_id", referencedColumnName = "post_id")
+    @JoinColumn(name = "post_id", referencedColumnName = "id")
     private Post post;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
     public void setPost(Post post) {

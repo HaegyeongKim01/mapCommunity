@@ -21,9 +21,8 @@ import java.util.Objects;
 @DynamicInsert
 public class Post {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "post_id")
-    private Long postId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
 
     @Column(nullable = false)
     private String title;
@@ -48,7 +47,7 @@ public class Post {
 
     //fk
     @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
     //fk

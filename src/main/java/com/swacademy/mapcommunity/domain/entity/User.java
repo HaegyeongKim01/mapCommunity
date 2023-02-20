@@ -16,12 +16,11 @@ import java.util.UUID;
 @Getter
 @Setter
 public class User {
-
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(name = "user_id", columnDefinition = "BINARY(16)")
-    private UUID userId;
+    @Column(columnDefinition = "BINARY(16)")
+    private UUID id;
 
     @Column(name = "email", nullable = false, unique = true)
     private String email;
@@ -55,5 +54,4 @@ public class User {
     public void addComment(Comment comment) {
         comment.setUser(this);
     }
-
 }

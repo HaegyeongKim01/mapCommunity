@@ -28,7 +28,7 @@ public class UserService {
         User entity = userRepository.save(user);
 
         //3. 반환
-        return entity.getUserId();
+        return entity.getId();
     }
 
 }

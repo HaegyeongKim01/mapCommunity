@@ -1,7 +1,6 @@
-package com.swacademy.mapcommunity.domain;
+package com.swacademy.mapcommunity.domain.repository;
 
 import com.swacademy.mapcommunity.domain.entity.User;
-import com.swacademy.mapcommunity.domain.repository.UserRepository;
 import com.swacademy.mapcommunity.vo.Gender;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -13,7 +12,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.UUID;
 
 @Slf4j
 @SpringBootTest
@@ -35,7 +33,6 @@ class UserRepositoryTest {
     void testUser() {
         // Given
         User user = new User();
-        user.setUserId(UUID.randomUUID());
         user.setEmail("hong@gmail.com");
         user.setPassword("1234!");
         user.setNickName("나는 도라에몽");
@@ -49,9 +46,6 @@ class UserRepositoryTest {
         entityManager.persist(user);
 
         transaction.commit();
-
-        User entity = entityManager.find(User.class, user.getUserId());
-//        log.info("hihi name: {} email: {}", entity.getNickName(), entity.getEmail());
     }
 
     @Test
@@ -59,7 +53,6 @@ class UserRepositoryTest {
     void springDataJpaUser() {
         // Given
         User user = new User();
-        user.setUserId(UUID.randomUUID());
         user.setEmail("king@gmail.com");
         user.setPassword("1234!");
         user.setNickName("나는 도라에몽");
